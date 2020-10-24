@@ -5,21 +5,29 @@ const refs = {
   secs: document.querySelector('span[data-value="secs"]'),
 }
 
+
+
 class CountdownTimer{
   constructor({ targetDate}){
     this.targetDate = targetDate;
     this.start();
+    this.clockStart();
     
-    
+  }
+
+   clockStart() {
+    const currentDate = Date.now();
+    const differenceInTime = this.targetDate - currentDate;
+    this.updateClock(this.getTimeComponents(differenceInTime))
   }
 
   start() {
   setInterval(() => {
-    const currentDate = Date.now();
-    const differenceInTime = this.targetDate - currentDate;
-    this.updateClock(this.getTimeComponents(differenceInTime))
+    this.clockStart()
   }, 1000);
   }
+
+ 
   
   getTimeComponents(time) {
     const days = this.pad(Math.floor(time / (1000 * 60 * 60 * 24)));
